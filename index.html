@@ -24,6 +24,28 @@
         },
       }
     </script>
+    <style>
+      .dark {
+        --bg-color: #2C3E50;
+        --text-color: #F7FFF7;
+        --card-bg-color: #34495E;
+        --subtle-text-color: #95A5A6;
+        --border-color: #34495E;
+      }
+      .dark body, .dark main {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+      }
+      .dark .bg-gray-100 { background-color: var(--bg-color); }
+      .dark .bg-white { background-color: var(--card-bg-color); }
+      .dark .text-dark { color: var(--text-color); }
+      .dark .text-gray-600, .dark .text-gray-500 { color: var(--subtle-text-color); }
+      .dark .border-b, .dark .rtl:border-l, .dark .ltr:border-r { border-color: var(--border-color); }
+      .dark .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
+      .dark .hover\:bg-gray-50:hover { background-color: #4A6572; }
+      .dark .bg-gray-50 { background-color: #4A6572; }
+      .dark .text-gray-800 { color: var(--text-color); }
+    </style>
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <script type="importmap">

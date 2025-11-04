@@ -5,6 +5,7 @@ export const packages: Package[] = [
     id: 1,
     name: 'Parisian Dream',
     destination: 'Paris',
+    location: 'Paris, France',
     description: 'Experience the romance and charm of Paris. Visit iconic landmarks, indulge in exquisite cuisine, and create unforgettable memories in the City of Love.',
     price: 1200,
     duration: 7,
@@ -17,12 +18,14 @@ export const packages: Package[] = [
       'Seine River cruise dinner'
     ],
     whatsIncluded: ['Accommodation', 'Guided Tours', 'Some Meals', 'River Cruise'],
-    whatsNotIncluded: ['Visa Fees', 'Personal Expenses', 'Travel Insurance']
+    whatsNotIncluded: ['Visa Fees', 'Personal Expenses', 'Travel Insurance'],
+    vendorId: 2,
   },
   {
     id: 2,
     name: 'Tokyo Adventure',
     destination: 'Tokyo',
+    location: 'Tokyo, Japan',
     description: 'Dive into the vibrant culture of Tokyo, where ancient traditions meet futuristic technology. Explore bustling markets, serene temples, and dazzling cityscapes.',
     price: 1800,
     duration: 10,
@@ -35,12 +38,14 @@ export const packages: Package[] = [
       'Day trip to Mount Fuji'
     ],
     whatsIncluded: ['Accommodation', 'Rail Pass', 'Guided Tours', 'Day Trip'],
-    whatsNotIncluded: ['Most Meals', 'Entrance Fees to some temples', 'Personal Souvenirs']
+    whatsNotIncluded: ['Most Meals', 'Entrance Fees to some temples', 'Personal Souvenirs'],
+    vendorId: 2,
   },
   {
     id: 3,
     name: 'Dubai Luxury Escape',
     destination: 'Dubai',
+    location: 'Dubai, UAE',
     description: 'Indulge in the opulence of Dubai. From towering skyscrapers to vast deserts, experience world-class shopping, dining, and entertainment.',
     price: 2500,
     duration: 5,
@@ -53,12 +58,14 @@ export const packages: Package[] = [
       'Tickets to the top of Burj Khalifa'
     ],
     whatsIncluded: ['Luxury Accommodation', 'Desert Safari', 'Burj Khalifa Tickets', 'Transfers'],
-    whatsNotIncluded: ['Shopping Expenses', 'Optional Tours', 'Lunches']
+    whatsNotIncluded: ['Shopping Expenses', 'Optional Tours', 'Lunches'],
+    vendorId: 2,
   },
   {
     id: 4,
     name: 'New York Big Apple Tour',
     destination: 'New York',
+    location: 'New York, USA',
     description: 'Feel the energy of the city that never sleeps. Explore iconic landmarks, catch a Broadway show, and discover the diverse neighborhoods of NYC.',
     price: 1500,
     duration: 6,
@@ -71,12 +78,14 @@ export const packages: Package[] = [
       'Entrance to the Empire State Building'
     ],
     whatsIncluded: ['Accommodation', 'MetroCard', 'Key Landmark Tickets'],
-    whatsNotIncluded: ['Broadway Show Tickets', 'Meals', 'Shopping']
+    whatsNotIncluded: ['Broadway Show Tickets', 'Meals', 'Shopping'],
+    vendorId: 2,
   },
    {
     id: 5,
     name: 'Roman Holiday',
     destination: 'Rome',
+    location: 'Rome, Italy',
     description: 'Walk through history in the eternal city of Rome. Discover ancient ruins, magnificent art, and enjoy authentic Italian pasta and gelato.',
     price: 1350,
     duration: 8,
@@ -89,12 +98,14 @@ export const packages: Package[] = [
       'Daily breakfast'
     ],
     whatsIncluded: ['Accommodation', 'Museum Tickets', 'Cooking Class', 'Breakfast'],
-    whatsNotIncluded: ['City Tax', 'Lunches and Dinners', 'Personal Expenses']
+    whatsNotIncluded: ['City Tax', 'Lunches and Dinners', 'Personal Expenses'],
+    vendorId: 2,
   },
   {
     id: 6,
     name: 'Santorini Sunset',
     destination: 'Santorini',
+    location: 'Santorini, Greece',
     description: 'Witness the world-famous sunsets of Santorini. Relax on volcanic beaches, explore picturesque white-washed villages, and savor fresh seafood.',
     price: 2100,
     duration: 7,
@@ -107,6 +118,7 @@ export const packages: Package[] = [
       'Daily breakfast'
     ],
     whatsIncluded: ['Unique Accommodation', 'Catamaran Cruise', 'Wine Tasting', 'Transfers'],
-    whatsNotIncluded: ['Most meals', 'Optional activities', 'Gratuities']
+    whatsNotIncluded: ['Most meals', 'Optional activities', 'Gratuities'],
+    vendorId: 2,
   },
 ];

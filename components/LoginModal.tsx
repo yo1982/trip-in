@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface LoginModalProps {
     onClose: () => void;
     onSwitchToRegister: () => void;
+    onLogin: (credentials: {email: string, password}) => void;
 }
 
 const CloseIcon: React.FC<{className?: string}> = ({className}) => (
@@ -12,8 +13,10 @@ const CloseIcon: React.FC<{className?: string}> = ({className}) => (
     </svg>
 );
 
-const LoginModal: React.FC<LoginModalProps> = ({ onClose, onSwitchToRegister }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ onClose, onSwitchToRegister, onLogin }) => {
     const { translations } = useLanguage();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     useEffect(() => {
         const handleEsc = (event: KeyboardEvent) => {
@@ -29,8 +32,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onSwitchToRegister }) 
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        alert('Login functionality coming soon!');
-        onClose();
+        onLogin({ email, password });
     };
 
     return (
@@ -52,14 +54,30 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose, onSwitchToRegister }) 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="login-email" className="block text-sm font-medium text-gray-700">{translations.emailAddress}</label>
-                        <input type="email" name="email" id="login-email" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"/>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            id="login-email" 
+                            required 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        />
                     </div>
                     <div>
                         <div className="flex justify-between items-baseline">
                              <label htmlFor="login-password" className="block text-sm font-medium text-gray-700">{translations.password}</label>
                              <a href="#" className="text-sm text-primary hover:underline">{translations.forgotPassword}</a>
                         </div>
-                        <input type="password" name="password" id="login-password" required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"/>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="login-password" 
+                            required 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        />
                     </div>
                     <div>
                         <button type="submit" className="w-full bg-primary text-white py-3 px-4 rounded-md hover:bg-opacity-90 transition-all font-semibold shadow-md">{translations.login}</button>

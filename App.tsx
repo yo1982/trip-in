@@ -12,12 +12,17 @@ import CheckoutPage from './components/CheckoutPage';
 import ConfirmationPage from './components/ConfirmationPage';
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegisterModal';
+import DashboardLayout from './components/dashboard/DashboardLayout';
+import ClientAccountPage from './components/ClientAccountPage';
 import { useLanguage } from './context/LanguageContext';
-import { Page, Package, BookingDetails } from './types';
+import { Page, Package, BookingDetails, User } from './types';
 import { packages } from './constants/packages';
+import { users } from './constants/users';
 
 const AppContent: React.FC = () => {
+  const [currentView, setCurrentView] = useState<'user' | 'dashboard'>('user');
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [legalPageContent, setLegalPageContent] = useState({ title: '', content: '' });
@@ -30,6 +35,18 @@ const AppContent: React.FC = () => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
+
+  const handleSwitchView = () => {
+    if (!currentUser) {
+      handleOpenLogin();
+      return;
+    }
+    if (currentUser.role === 'client') {
+      alert(translations.dashboardAccessDenied);
+      return;
+    }
+    setCurrentView(prev => prev === 'user' ? 'dashboard' : 'user');
+  }
 
   const handleLegalNavigate = (type: 'privacy' | 'terms') => {
     if (type === 'privacy') {
@@ -60,6 +77,22 @@ const AppContent: React.FC = () => {
     setRegisterModalOpen(false);
     setLoginModalOpen(true);
   };
+
+  const handleLogin = (credentials: { email: string; password; }) => {
+    const user = users.find(u => u.email === credentials.email && u.password === credentials.password);
+    if (user) {
+      setCurrentUser(user);
+      handleCloseModals();
+    } else {
+      alert(translations.invalidCredentials);
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setCurrentView('user');
+    handleNavigate('home');
+  };
   
   const handleSelectPackage = (packageId: number) => {
     const pkg = packages.find(p => p.id === packageId);
@@ -87,7 +120,7 @@ const AppContent: React.FC = () => {
   };
 
 
-  const renderPage = () => {
+  const renderUserPage = () => {
     switch (currentPage) {
       case 'home':
         return <HomePage onNavigate={handleNavigate} />;
@@ -105,17 +138,30 @@ const AppContent: React.FC = () => {
         return bookingDetails ? <ConfirmationPage bookingDetails={bookingDetails} onNavigate={handleNavigate} /> : <HomePage onNavigate={handleNavigate} />;
       case 'legal':
         return <LegalPage title={legalPageContent.title} content={legalPageContent.content} />;
+      case 'account':
+        return currentUser ? <ClientAccountPage currentUser={currentUser} onNavigate={handleNavigate} /> : <HomePage onNavigate={handleNavigate} />;
       default:
         return <HomePage onNavigate={handleNavigate} />;
     }
   };
 
+  if (currentView === 'dashboard' && currentUser && currentUser.role !== 'client') {
+    return <DashboardLayout onSwitchView={handleSwitchView} currentUser={currentUser} />;
+  }
+
   return (
     <div className="bg-light text-dark font-sans">
-      <Header onNavigate={handleNavigate} onOpenLogin={handleOpenLogin} onOpenRegister={handleOpenRegister} />
-      <main>{renderPage()}</main>
+      <Header 
+        currentUser={currentUser}
+        onNavigate={handleNavigate} 
+        onOpenLogin={handleOpenLogin} 
+        onOpenRegister={handleOpenRegister}
+        onLogout={handleLogout}
+        onSwitchView={handleSwitchView}
+      />
+      <main>{renderUserPage()}</main>
       <Footer onNavigate={handleNavigate} onLegalNavigate={handleLegalNavigate} />
-      {isLoginModalOpen && <LoginModal onClose={handleCloseModals} onSwitchToRegister={handleSwitchToRegister} />}
+      {isLoginModalOpen && <LoginModal onClose={handleCloseModals} onSwitchToRegister={handleSwitchToRegister} onLogin={handleLogin} />}
       {isRegisterModalOpen && <RegisterModal onClose={handleCloseModals} onSwitchToLogin={handleSwitchToLogin} />}
     </div>
   );
